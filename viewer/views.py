@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 
 from viewer.models import Movie
+from django.shortcuts import get_object_or_404
 
 
 def movies(request):
@@ -12,14 +13,16 @@ def movies(request):
 
 
 def movie_detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
     return HttpResponse(
-        pk,
+        f'{movie.title}, {movie.genre}, {movie.rating}',
         content_type='text/plain'
     )
 
 
 def average_rating(request):
+    movies = Movie.objects.all()
     return HttpResponse(
-        f'Average rating: TODO',
+        f'Average rating: {sum(movie.rating for movie in movies) / len(movies)}',
         content_type='text/plain'
     )
