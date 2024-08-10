@@ -1,0 +1,203 @@
+In [1]: from viewer.models import Genre
+
+In [2]: Genre.objects.all()
+Out[2]: <QuerySet [<Genre: Comedy>, <Genre: Horror (18+)>]>
+
+In [3]: Genre.objects.get(name='Horror')
+Out[3]: <Genre: Horror (18+)>
+
+In [4]: horror = _
+
+In [5]: horror = Genre.objects.get(name='Horror')
+
+In [6]: horror
+Out[6]: <Genre: Horror (18+)>
+
+In [7]: horror.id
+Out[7]: 2
+
+In [8]: horror.name
+Out[8]: 'Horror'
+
+In [9]: horror.available_for_children
+Out[9]: False
+
+In [10]: dir(horror)
+Out[10]:
+['DoesNotExist',
+ 'MultipleObjectsReturned',
+ '__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__getstate__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__setstate__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',
+ '_check_column_name_clashes',
+ '_check_constraints',
+ '_check_db_table_comment',
+ '_check_default_pk',
+ '_check_field_name_clashes',
+ '_check_fields',
+ '_check_id_field',
+ '_check_index_together',
+ '_check_indexes',
+ '_check_local_fields',
+ '_check_long_column_names',
+ '_check_m2m_through_same_relationship',
+ '_check_managers',
+ '_check_model',
+ '_check_model_name_db_lookup_clashes',
+ '_check_ordering',
+ '_check_property_name_related_field_accessor_clashes',
+ '_check_single_primary_key',
+ '_check_swappable',
+ '_check_unique_together',
+ '_do_insert',
+ '_do_update',
+ '_get_FIELD_display',
+ '_get_expr_references',
+ '_get_field_value_map',
+ '_get_next_or_previous_by_FIELD',
+ '_get_next_or_previous_in_order',
+ '_get_pk_val',
+ '_get_unique_checks',
+ '_meta',
+ '_perform_date_checks',
+ '_perform_unique_checks',
+ '_prepare_related_fields_for_save',
+ '_save_parents',
+ '_save_table',
+ '_set_pk_val',
+ '_state',
+ 'adelete',
+ 'arefresh_from_db',
+ 'asave',
+ 'available_for_children',
+ 'check',
+ 'clean',
+ 'clean_fields',
+ 'date_error_message',
+ 'delete',
+ 'from_db',
+ 'full_clean',
+ 'get_constraints',
+ 'get_deferred_fields',
+ 'id',
+ 'name',
+ 'objects',
+ 'pk',
+ 'prepare_database_save',
+ 'refresh_from_db',
+ 'save',
+ 'save_base',
+ 'serializable_value',
+ 'unique_error_message',
+ 'validate_constraints',
+ 'validate_unique']
+
+In [11]: horror
+Out[11]: <Genre: Horror (18+)>
+
+In [12]: print(horror)
+Horror (18+)
+
+In [13]: horror.available_for_children = True
+
+In [14]: horror
+Out[14]: <Genre: Horror>
+
+In [15]: horror = Genre.objects.get(name='Horror')
+
+In [16]: horror
+Out[16]: <Genre: Horror (18+)>
+
+In [17]: horror.available_for_children = True
+
+In [18]: horror.save()
+
+In [19]: horror
+Out[19]: <Genre: Horror>
+
+In [20]: horror = Genre.objects.get(name='Horror')
+
+In [21]: horror
+Out[21]: <Genre: Horror>
+
+In [22]: horror.available_for_children = False
+
+In [23]: horror
+Out[23]: <Genre: Horror (18+)>
+
+In [24]: horror.refresh_from_db()
+
+In [25]: horror
+Out[25]: <Genre: Horror>
+
+In [26]: horror.available_for_children = False
+
+In [27]: horror.save()
+
+In [28]: horror
+Out[28]: <Genre: Horror (18+)>
+
+In [29]:
+In [29]: Genre.objects.get(name="asdf")
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-29-6ceea8092cc0> in <cell line: 1>()
+----> 1 Genre.objects.get(name="asdf")
+
+~/PycharmProjects/SDA_Django/.venv/lib/python3.9/site-packages/django/db/models/manager.py in manager_method(self, *args, **kwargs)
+     85             @wraps(method)
+     86             def manager_method(self, *args, **kwargs):
+---> 87                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     88
+     89             return manager_method
+
+~/PycharmProjects/SDA_Django/.venv/lib/python3.9/site-packages/django/db/models/query.py in get(self, *args, **kwargs)
+    635             return clone._result_cache[0]
+    636         if not num:
+--> 637             raise self.model.DoesNotExist(
+    638                 "%s matching query does not exist." % self.model._meta.object_name
+    639             )
+
+DoesNotExist: Genre matching query does not exist.
+
+In [30]: Genre.objects.filter(name="asdf")
+Out[30]: <QuerySet []>
+
+In [31]: Genre.objects.filter(name="asdf").first()
+
+In [32]: Genre.objects.filter(name="Horror").first()
+Out[32]: <Genre: Horror (18+)>
+
+In [33]: Genre.objects.filter(name="Horror")
+Out[33]: <QuerySet [<Genre: Horror (18+)>]>
+
+In [34]: Genre.objects.filter(name="Comedy")
+Out[34]: <QuerySet [<Genre: Comedy>]>
+
+In [35]: Genre.objects.filter(name="Comedy").last()
+Out[35]: <Genre: Comedy>

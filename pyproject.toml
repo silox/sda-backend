@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "sda-django"
+version = "0.1.0"
+description = ""
+authors = ["silox <edruisl99@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "4.2.15"
+ipython = "7.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
