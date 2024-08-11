@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path
 
 from viewer.models import Genre, Movie
-from viewer.views import movies, average_rating, movie_detail, hello
+from viewer.views import movies, average_rating, movie_detail, hello, index
 
 admin.site.register(Genre)
 admin.site.register(Movie)
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('hello/<s0>', hello),
     path('movies/', movies),

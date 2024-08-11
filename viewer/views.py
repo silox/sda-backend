@@ -34,3 +34,9 @@ def hello(request, s0):
         request, template_name='hello.html',
         context={'adjectives': [s0, s1, 'beautiful', 'wonderful']}
     )
+
+
+def index(request):
+    return render(
+        request, template_name='index.html',
+    )
