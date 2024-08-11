@@ -20,7 +20,7 @@ class Command(BaseCommand):
                     continue
 
                 title, genre, rating, released, description = row
-                genre_obj = Genre.objects.create(name=genre)
+                genre_obj, _ = Genre.objects.get_or_create(name=genre)
 
                 Movie.objects.create(
                     title=title,
