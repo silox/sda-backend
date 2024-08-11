@@ -21,6 +21,16 @@ Sprav migracie
 python manage.py migrate
 ```
 
+Aktivuje sa virtual environment
+```bash
+poetry shell
+```
+
+Jednorazove spustenie prikazu pod virtual environmentom
+```bash
+poetry run <command>
+```
+
 ## Django commands
 
 Vytvorenie projektu
@@ -56,6 +66,11 @@ python manage.py migrate <appname> <id_migracie>
 Revert migracie az na inicialny stav
 ```bash
 python manage.py migrate <appname> zero
+```
+
+Zobrazenie aplikovanych migracii
+```bash
+python manage.py showmigrations
 ```
 
 Vytvorenie super usera (admina)
