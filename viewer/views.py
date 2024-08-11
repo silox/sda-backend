@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 
 from viewer.models import Movie
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 
 def movies(request):
@@ -25,4 +25,12 @@ def average_rating(request):
     return HttpResponse(
         f'Average rating: {sum(movie.rating for movie in movies) / len(movies)}',
         content_type='text/plain'
+    )
+
+
+def hello(request, s0):
+    s1 = request.GET.get('s1', '')
+    return render(
+        request, template_name='hello.html',
+        context={'adjectives': [s0, s1, 'beautiful', 'wonderful']}
     )
