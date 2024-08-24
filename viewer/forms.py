@@ -1,7 +1,7 @@
 import re
 
 from django.forms import (
-    CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea, ModelForm
+    CharField, IntegerField, ModelForm
 )
 
 from viewer.fields import PastMonthField, capitalized_validator
@@ -36,3 +36,9 @@ class MovieForm(ModelForm):
                 "Commedies aren't so good to be rated over 5."
             )
         return result
+
+
+class GenreForm(ModelForm):
+    class Meta:
+        model = Genre
+        fields = '__all__'

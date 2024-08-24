@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from viewer.models import Genre, Movie
-from viewer.views import MoviesView, average_rating, hello, index, MovieCreateView
+from viewer.views import MoviesView, average_rating, hello, index, MovieCreateView, GenreCreateView
 
 admin.site.register(Genre)
 admin.site.register(Movie)
@@ -30,4 +30,5 @@ urlpatterns = [
     path('movie/', MoviesView.as_view(), name='movie_list'),
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
     path('movies/average-rating/', average_rating, name='average_rating'),
+    path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
 ]
