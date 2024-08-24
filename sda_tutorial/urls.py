@@ -27,7 +27,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('hello/<s0>', hello, name='hello'),
-    path('movies/', MoviesView.as_view(), name='movies'),
+    path('movie/', MoviesView.as_view(), name='movie_list'),
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
     path('movies/average-rating/', average_rating, name='average_rating'),
 ]

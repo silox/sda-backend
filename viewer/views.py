@@ -31,19 +31,19 @@ def hello(request, s0):
 def index(request):
     return render(
         request, template_name='index.html',
-        context={'movies_url': reverse('movies')}
+        context={'movies_url': reverse('movie_list')}
     )
 
 
 class MoviesView(ListView):
-    template_name = 'movies.html'
+    template_name = 'movie_list.html'
     model = Movie
 
 
 class MovieCreateView(FormView):
-    template_name = 'movie_create_form.html'
+    template_name = 'movie_create.html'
     form_class = MovieForm
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy('movie_list')
 
     def form_valid(self, form):
         result = super().form_valid(form)

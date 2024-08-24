@@ -1,26 +1,31 @@
 import re
 
 from django.forms import (
-  CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea
+    CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea, ModelForm
 )
 
-from viewer.fields import PastMonthField
-from viewer.models import Genre
+from viewer.fields import PastMonthField, capitalized_validator
+from viewer.models import Genre, Movie
 from django.core.exceptions import ValidationError
 
 
-class MovieForm(Form):
-    title = CharField(max_length=128)
-    genre = ModelChoiceField(queryset=Genre.objects)
+class MovieForm(ModelForm):
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+    title = CharField(validators=[capitalized_validator])
     rating = IntegerField(min_value=1, max_value=10)
     released = PastMonthField()
-    description = CharField(widget=Textarea, required=False)
 
     def clean_description(self):
         # Každá věta bude začínat velkým písmenem
         initial = self.cleaned_data['description']
+        if not initial:
+            return ''
         sentences = re.sub(r'\s*\.\s*', '.', initial).split('.')
-        return '. '.join(sentence.capitalize() for sentence in sentences)
+        cleaned = '. '.join(sentence.capitalize() for sentence in sentences)
+        self.cleaned_data['description'] = cleaned
 
     def clean(self):
         result = super().clean()
