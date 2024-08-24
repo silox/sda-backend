@@ -12,7 +12,7 @@ def capitalized_validator(value):
 class PastMonthField(DateField):
     def validate(self, value):
         super().validate(value)
-        if value < date.today():
+        if value >= date.today():
             raise ValidationError('Only past dates allowed here.')
 
     def clean(self, value):
