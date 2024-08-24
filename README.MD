@@ -87,3 +87,8 @@ Nacitanie databazy z `.json` suboru
 ```bash
 python manage.py loaddata fixtures.json
 ```
+
+Interaktivny rezim, ktory ma naloadovane django prostredie
+```bash
+python manage.py shell
+```
