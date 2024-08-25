@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome to HollyMovies!</h1>
-  <ul>
+  <table>
+    <tbody>
     {% for movie in object_list %}
-      <li>
-        {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
-      </li>
+      <tr>
+        <td><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }} ({{ movie.released.year }})</a></td>
+        <td><a href="{% url 'movie_update' movie.pk %}">Edit</a></td>
+        <td>Delete</td>
+      </tr>
     {% endfor %}
-  </ul>
+    </tbody>
+  </table>
 {% endblock %}

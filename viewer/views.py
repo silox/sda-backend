@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView, DetailView
 
 from viewer.forms import MovieForm, GenreForm
 from viewer.models import Movie, Genre
@@ -36,6 +36,11 @@ def index(request):
 
 class MovieListView(ListView):
     template_name = 'movie_list.html'
+    model = Movie
+
+
+class MovieDetailView(DetailView):
+    template_name = 'movie_detail.html'
     model = Movie
 
 

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{% url 'movie_list' %}">< Back to movie list</a>
+    <hr>
+    <p><b>{{ object.title }}</b> ({{ movie.released.year }})</p>
+    <p>Genre: {{ movie.genre.name }}</p>
+{% endblock %}
