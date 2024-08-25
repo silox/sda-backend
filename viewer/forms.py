@@ -21,11 +21,8 @@ class MovieForm(ModelForm):
     def clean_description(self):
         # Každá věta bude začínat velkým písmenem
         initial = self.cleaned_data['description']
-        if not initial:
-            return ''
         sentences = re.sub(r'\s*\.\s*', '.', initial).split('.')
-        cleaned = '. '.join(sentence.capitalize() for sentence in sentences)
-        self.cleaned_data['description'] = cleaned
+        return '. '.join(sentence.capitalize() for sentence in sentences)
 
     def clean(self):
         result = super().clean()

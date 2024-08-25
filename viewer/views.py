@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView, FormView, CreateView
 
 from viewer.forms import MovieForm, GenreForm
 from viewer.models import Movie, Genre
@@ -39,22 +39,10 @@ class MoviesView(ListView):
     model = Movie
 
 
-class MovieCreateView(FormView):
+class MovieCreateView(CreateView):
     template_name = 'obj_create_form.html'
     form_class = MovieForm
     success_url = reverse_lazy('movie_list')
-
-    def form_valid(self, form):
-        result = super().form_valid(form)
-        cleaned_data = form.cleaned_data
-        Movie.objects.create(
-            title=cleaned_data['title'],
-            genre=cleaned_data['genre'],
-            rating=cleaned_data['rating'],
-            released=cleaned_data['released'],
-            description=cleaned_data['description']
-        )
-        return result
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data.')
@@ -69,7 +57,6 @@ class GenreCreateView(FormView):
     def form_valid(self, form):
         result = super().form_valid(form)
         cleaned_data = form.cleaned_data
-        print(cleaned_data)
         Genre.objects.create(
             name=cleaned_data['name'],
             available_for_children=cleaned_data['available_for_children'],
