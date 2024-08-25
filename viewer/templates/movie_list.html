@@ -7,9 +7,13 @@
       <tr>
         <td><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }} ({{ movie.released.year }})</a></td>
         <td><a href="{% url 'movie_update' movie.pk %}">Edit</a></td>
-        <td>Delete</td>
+        <td><a href="{% url 'movie_delete' movie.pk %}">Delete</a></td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
+  <br>
+  <p>Average movie rating: {{ average_rating }}</p>
+  <br>
+  <button><a href="{% url 'movie_create' %}">Create movie</a></button>
 {% endblock %}

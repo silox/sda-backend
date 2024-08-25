@@ -1,22 +1,13 @@
 import logging
 
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from viewer.forms import MovieForm, GenreForm
 from viewer.models import Movie, Genre
 
 logger = logging.getLogger(__name__)
-
-
-def average_rating(request):
-    movies = Movie.objects.all()
-    return HttpResponse(
-        f'Average rating: {sum(movie.rating for movie in movies) / len(movies)}',
-        content_type='text/plain'
-    )
 
 
 def hello(request, s0):
@@ -38,6 +29,13 @@ class MovieListView(ListView):
     template_name = 'movie_list.html'
     model = Movie
 
+    def get_context_data(self, **kwargs):
+        movies = Movie.objects.all()
+        return {
+            **super().get_context_data(**kwargs),
+            'average_rating': f'{sum(movie.rating for movie in movies) / len(movies):.2f}'
+        }
+
 
 class MovieDetailView(DetailView):
     template_name = 'movie_detail.html'
@@ -58,7 +56,7 @@ class MovieUpdateView(UpdateView):
     template_name = 'obj_create_form.html'
     model = Movie
     form_class = MovieForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('movie_list')
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data while updating a movie.')
@@ -68,7 +66,7 @@ class MovieUpdateView(UpdateView):
 class MovieDeleteView(DeleteView):
     template_name = 'obj_delete_form.html'
     model = Movie
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('movie_list')
     extra_context = {'model_name': 'movie'}
 
 
