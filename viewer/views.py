@@ -64,6 +64,7 @@ class MovieDeleteView(DeleteView):
     template_name = 'obj_delete_form.html'
     model = Movie
     success_url = reverse_lazy('index')
+    extra_context = {'model_name': 'movie'}
 
 
 class GenreCreateView(CreateView):
@@ -85,3 +86,10 @@ class GenreUpdateView(UpdateView):
     def form_invalid(self, form):
         logger.warning('User provided invalid data while updating a genre.')
         return super().form_invalid(form)
+
+
+class GenreDeleteView(DeleteView):
+    template_name = 'obj_delete_form.html'
+    model = Genre
+    success_url = reverse_lazy('index')
+    extra_context = {'model_name': 'genre'}

@@ -20,7 +20,7 @@ from django.urls import path
 from viewer.models import Genre, Movie
 from viewer.views import (
     MovieListView, average_rating, hello, index, MovieCreateView, GenreCreateView, MovieUpdateView,
-    GenreUpdateView, MovieDeleteView,
+    GenreUpdateView, MovieDeleteView, GenreDeleteView
 )
 
 admin.site.register(Genre)
@@ -37,4 +37,5 @@ urlpatterns = [
     path('movies/average-rating/', average_rating, name='average_rating'),
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
+    path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
 ]
