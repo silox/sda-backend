@@ -77,3 +77,14 @@ class GenreCreateView(FormView):
     def form_invalid(self, form):
         logger.warning('User provided invalid data.')
         return super().form_invalid(form)
+
+
+class GenreUpdateView(UpdateView):
+    template_name = 'obj_create_form.html'
+    model = Genre
+    form_class = GenreForm
+    success_url = reverse_lazy('index')
+
+    def form_invalid(self, form):
+        logger.warning('User provided invalid data while updating a genre.')
+        return super().form_invalid(form)
