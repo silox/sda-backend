@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group">
+      {{ form.name.errors }}
+      <label for="{{ form.name.id_for_label }}">Name:</label>
+      {{ form.name }}
+    </div>
+    <div class="form-group">
+      {{ form.available_for_children.errors }}
+      <label for="{{ form.available_for_children.id_for_label }}">Available for children:</label>
+      {{ form.available_for_children }}
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+{% endblock %}

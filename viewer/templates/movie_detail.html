@@ -3,9 +3,9 @@
 {% block content %}
     <a href="{% url 'movie_list' %}">< Back to movie list</a>
     <br><br><br>
-    <h2>{{ object.title }} ({{ movie.released.year }})</h2>
+    <h2>{{ object.title }} ({{ object.released.year }})</h2>
     <hr>
-    <p>Genre: {{ movie.genre.name }}</p>
-    <p>Rating: {{ movie.rating }}</p>
-    <p>Description: {{ movie.description }}</p>
+    <p>Genre: {{ object.genre.name }}</p>
+    <p>Rating: {{ object.rating }}</p>
+    <p>Description: {{ object.description }}</p>
 {% endblock %}

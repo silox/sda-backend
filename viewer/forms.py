@@ -22,6 +22,7 @@ class MovieForm(ModelForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
     def clean_description(self):
         # Každá věta bude začínat velkým písmenem
         initial = self.cleaned_data['description']
@@ -43,3 +44,8 @@ class GenreForm(ModelForm):
     class Meta:
         model = Genre
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'

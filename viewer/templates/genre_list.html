@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Genre list</h1>
+  <hr>
+  <table>
+    <tbody>
+    {% for genre in object_list %}
+      <tr>
+        <td><a href="{% url 'genre_detail' genre.pk %}">{{ genre.name }}</a></td>
+        <td><a href="{% url 'genre_update' genre.pk %}">Edit</a></td>
+        <td><a href="{% url 'genre_delete' genre.pk %}">Delete</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <br>
+  <button><a href="{% url 'genre_create' %}">Create genre</a></button>
+{% endblock %}

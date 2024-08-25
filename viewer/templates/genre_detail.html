@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{% url 'genre_list' %}">< Back to genre list</a>
+    <br><br><br>
+    <h2>{{ object.name }}</h2>
+    <hr>
+    <p>Is available for children: {{ object.available_for_children }}</p>
+{% endblock %}
