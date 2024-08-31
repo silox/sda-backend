@@ -71,7 +71,7 @@ class MovieUpdateView(UpdateView):
 
     def get_success_url(self):
         if '_continue' in self.request.POST:
-            return reverse_lazy('movie_update', kwargs={'pk': self.kwargs['pk']})
+            return reverse_lazy('movie_update', kwargs={'pk': self.object.pk})
         elif '_save' in self.request.POST:
             return reverse_lazy('movie_list')
 
