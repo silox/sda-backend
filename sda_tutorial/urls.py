@@ -20,7 +20,8 @@ from django.urls import path
 from viewer.models import Genre, Movie
 from viewer.views import (
     MovieListView, hello, index, MovieCreateView, GenreCreateView, MovieUpdateView,
-    GenreUpdateView, MovieDeleteView, GenreDeleteView, MovieDetailView, GenreListView, GenreDetailView
+    GenreUpdateView, MovieDeleteView, GenreDeleteView, MovieDetailView, GenreListView, GenreDetailView,
+    SubmittableLoginView
 )
 
 admin.site.register(Genre)
@@ -28,6 +29,7 @@ admin.site.register(Movie)
 
 urlpatterns = [
     path('', index, name='index'),
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
     path('admin/', admin.site.urls),
     path('hello/<s0>', hello, name='hello'),
     path('movie/', MovieListView.as_view(), name='movie_list'),

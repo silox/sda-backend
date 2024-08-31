@@ -1,5 +1,7 @@
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -33,7 +35,7 @@ def index(request):
     )
 
 
-class MovieListView(ListView):
+class MovieListView(LoginRequiredMixin, ListView):
     template_name = 'movie_list.html'
     model = Movie
 
@@ -128,3 +130,7 @@ class GenreDeleteView(DeleteView):
     model = Genre
     success_url = reverse_lazy('genre_list')
     extra_context = {'model_name': 'genre'}
+
+
+class SubmittableLoginView(LoginView):
+    template_name = 'login_form.html'
