@@ -22,6 +22,15 @@
                     Genres
                 </a>
             </div>
+            <div class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    {% comment %}
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% endcomment %}
+                {% else %}
+                    <a class="nav-item nav-link active" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>
