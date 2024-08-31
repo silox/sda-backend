@@ -109,11 +109,18 @@ class GenreUpdateView(UpdateView):
     template_name = 'genre_form.html'
     model = Genre
     form_class = GenreForm
-    success_url = reverse_lazy('genre_list')
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data while updating a genre.')
         return super().form_invalid(form)
+
+    def get_success_url(self):
+        if '_continue' in self.request.POST:
+            return reverse_lazy('genre_update', kwargs={'pk': self.object.pk})
+        elif '_save' in self.request.POST:
+            return reverse_lazy('genre_list')
+
+        assert False, 'Unexpectedly got no _save or _continue in request.POST'
 
 
 class GenreDeleteView(DeleteView):

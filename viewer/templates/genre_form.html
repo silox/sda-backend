@@ -14,6 +14,7 @@
       <label for="{{ form.available_for_children.id_for_label }}">Available for children:</label>
       {{ form.available_for_children }}
     </div>
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" name="_save" value="Submit" class="btn btn-primary">
+    <input type="submit" name="_continue" value="Submit and continue" class="btn btn-primary">
   </form>
 {% endblock %}
