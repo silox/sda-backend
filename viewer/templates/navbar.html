@@ -24,9 +24,7 @@
             </div>
             <div class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                    {% comment %}
-                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% endcomment %}
+                    <a class="nav-item nav-link active" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                     <a class="nav-item nav-link active" href="{% url 'login' %}">Login</a>
                 {% endif %}
