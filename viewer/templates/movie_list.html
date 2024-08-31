@@ -16,6 +16,7 @@
   </table>
   <br>
   <p>Average movie rating: {{ average_rating }}</p>
+  <p>Number of movies: {{ object_list|length }}</p>
   <br>
   <button><a href="{% url 'movie_create' %}">Create movie</a></button>
 {% endblock %}

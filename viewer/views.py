@@ -19,9 +19,17 @@ def hello(request, s0):
 
 
 def index(request):
+    movie = Movie.objects.filter(pk=request.GET.get('pk')).first()
+    code = '' if movie is None else movie.description
     return render(
         request, template_name='index.html',
-        context={'movies_url': reverse('movie_list')}
+        context={
+            'list_data': [0, 1, 2, 3],
+            'dict_data': {'a': 1, 'b': 2, 'c': 3},
+            'names': ['John', 'Peter', 'James'],
+            'my_html_code': code,
+            'br_test': 'text\n which contains\n multiple\nlines!',
+        }
     )
 
 

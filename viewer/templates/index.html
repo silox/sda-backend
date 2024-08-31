@@ -2,5 +2,25 @@
 
 {% block content %}
   <h1>Welcome to HollyMovies!</h1>
+  <hr>
   <p>This is index.</p>
+  <div>
+    <a href="{% url 'movie_list' %}">Movies</a>
+  </div>
+  <div>
+    <a href="{% url 'genre_list' %}">Genres</a>
+  </div>
+
+  {{ my_html_code|safe }}
+
+  {% for name in names %}
+    <p>{{ name|upper }}</p>
+  {% endfor %}
+  {% for key, value in dict_data.items %}
+    <p>{{key}} {{value}}</p>
+  {% endfor %}
+
+  <p>{{ names|join:', ' }}</p>
+  <p>{{ br_test|linebreaksbr }}</p>
+
 {% endblock %}

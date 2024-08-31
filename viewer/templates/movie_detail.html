@@ -8,4 +8,6 @@
     <p>Genre: {{ object.genre.name }}</p>
     <p>Rating: {{ object.rating }}</p>
     <p>Description: {{ object.description }}</p>
+    <br>
+    <button><a href="{% url 'movie_update' object.pk %}">Edit movie</a></button>
 {% endblock %}
