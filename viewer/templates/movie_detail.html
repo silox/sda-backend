@@ -10,4 +10,5 @@
     <p>Description: {{ object.description }}</p>
     <br>
     <button><a href="{% url 'movie_update' object.pk %}">Edit movie</a></button>
+    <button><a href="{% url 'movie_delete' object.pk %}">Delete movie</a></button>
 {% endblock %}

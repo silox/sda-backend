@@ -64,11 +64,18 @@ class MovieUpdateView(UpdateView):
     template_name = 'movie_form.html'
     model = Movie
     form_class = MovieForm
-    success_url = reverse_lazy('movie_list')
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data while updating a movie.')
         return super().form_invalid(form)
+
+    def get_success_url(self):
+        if '_continue' in self.request.POST:
+            return reverse_lazy('movie_update', kwargs={'pk': self.kwargs['pk']})
+        elif '_save' in self.request.POST:
+            return reverse_lazy('movie_list')
+
+        assert False, 'Unexpectedly got no _save or _continue in request.POST'
 
 
 class MovieDeleteView(DeleteView):

@@ -39,6 +39,7 @@
       <label for="{{ form.description.id_for_label }}">Description:</label>
       {{ form.description }}
     </div>
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" name="_save" value="Submit" class="btn btn-primary">
+    <input type="submit" name="_continue" value="Submit and continue editing" class="btn btn-primary">
   </form>
 {% endblock %}
