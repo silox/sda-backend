@@ -7,9 +7,9 @@
     <tbody>
     {% for movie in object_list %}
       <tr>
-        <td><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }} ({{ movie.released.year }})</a></td>
-        <td><a href="{% url 'movie_update' movie.pk %}">Edit</a></td>
-        <td><a href="{% url 'movie_delete' movie.pk %}">Delete</a></td>
+        <td><a href="{% url 'viewer:movie_detail' movie.pk %}">{{ movie.title }} ({{ movie.released.year }})</a></td>
+        <td><a href="{% url 'viewer:movie_update' movie.pk %}">Edit</a></td>
+        <td><a href="{% url 'viewer:movie_delete' movie.pk %}">Delete</a></td>
       </tr>
     {% endfor %}
     </tbody>
@@ -18,5 +18,5 @@
   <p>Average movie rating: {{ average_rating }}</p>
   <p>Number of movies: {{ object_list|length }}</p>
   <br>
-  <button><a href="{% url 'movie_create' %}">Create movie</a></button>
+  <button><a href="{% url 'viewer:movie_create' %}">Create movie</a></button>
 {% endblock %}

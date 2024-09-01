@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{% url 'genre_list' %}">< Back to genre list</a>
+    <a href="{% url 'viewer:genre_list' %}">< Back to genre list</a>
     <br><br><br>
     <h2>{{ object.name }}</h2>
     <hr>
     <p>Is available for children: {{ object.available_for_children }}</p>
     <br>
-    <button><a href="{% url 'genre_update' object.pk %}">Edit genre</a></button>
-    <button><a href="{% url 'genre_delete' object.pk %}">Delete genre</a></button>
+    <button><a href="{% url 'viewer:genre_update' object.pk %}">Edit genre</a></button>
+    <button><a href="{% url 'viewer:genre_delete' object.pk %}">Delete genre</a></button>
 {% endblock %}

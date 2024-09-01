@@ -15,33 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth.views import LogoutView
-from django.urls import path
+from django.urls import path, include
 
-from viewer.models import Genre, Movie
-from viewer.views import (
-    MovieListView, hello, index, MovieCreateView, GenreCreateView, MovieUpdateView,
-    GenreUpdateView, MovieDeleteView, GenreDeleteView, MovieDetailView, GenreListView, GenreDetailView,
-    SubmittableLoginView
-)
-
-admin.site.register(Genre)
-admin.site.register(Movie)
+from viewer.views import hello, index, SubmittableLoginView, CustomLogoutView
 
 urlpatterns = [
     path('', index, name='index'),
     path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
     path('hello/<s0>', hello, name='hello'),
-    path('movie/', MovieListView.as_view(), name='movie_list'),
-    path('movie/detail/<pk>', MovieDetailView.as_view(), name='movie_detail'),
-    path('movie/create', MovieCreateView.as_view(), name='movie_create'),
-    path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
-    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
-    path('genre/', GenreListView.as_view(), name='genre_list'),
-    path('genre/detail/<pk>', GenreDetailView.as_view(), name='genre_detail'),
-    path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
-    path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
-    path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
+    path('viewer/', include('viewer.urls', namespace='viewer')),
 ]

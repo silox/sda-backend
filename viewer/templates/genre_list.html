@@ -7,13 +7,13 @@
     <tbody>
     {% for genre in object_list %}
       <tr>
-        <td><a href="{% url 'genre_detail' genre.pk %}">{{ genre.name }}</a></td>
-        <td><a href="{% url 'genre_update' genre.pk %}">Edit</a></td>
-        <td><a href="{% url 'genre_delete' genre.pk %}">Delete</a></td>
+        <td><a href="{% url 'viewer:genre_detail' genre.pk %}">{{ genre.name }}</a></td>
+        <td><a href="{% url 'viewer:genre_update' genre.pk %}">Edit</a></td>
+        <td><a href="{% url 'viewer:genre_delete' genre.pk %}">Delete</a></td>
       </tr>
     {% endfor %}
     </tbody>
   </table>
   <br>
-  <button><a href="{% url 'genre_create' %}">Create genre</a></button>
+  <button><a href="{% url 'viewer:genre_create' %}">Create genre</a></button>
 {% endblock %}

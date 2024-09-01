@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -55,7 +55,7 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
 class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = 'movie_form.html'
     form_class = MovieForm
-    success_url = reverse_lazy('movie_list')
+    success_url = reverse_lazy('viewer:movie_list')
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data.')
@@ -73,9 +73,9 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         if '_continue' in self.request.POST:
-            return reverse_lazy('movie_update', kwargs={'pk': self.object.pk})
+            return reverse_lazy('viewer:movie_update', kwargs={'pk': self.object.pk})
         elif '_save' in self.request.POST:
-            return reverse_lazy('movie_list')
+            return reverse_lazy('viewer:movie_list')
 
         assert False, 'Unexpectedly got no _save or _continue in request.POST'
 
@@ -83,7 +83,7 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'obj_delete_form.html'
     model = Movie
-    success_url = reverse_lazy('movie_list')
+    success_url = reverse_lazy('viewer:movie_list')
     extra_context = {'model_name': 'movie'}
 
 
@@ -100,7 +100,7 @@ class GenreDetailView(LoginRequiredMixin, DetailView):
 class GenreCreateView(LoginRequiredMixin, CreateView):
     template_name = 'genre_form.html'
     form_class = GenreForm
-    success_url = reverse_lazy('genre_list')
+    success_url = reverse_lazy('viewer:genre_list')
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data.')
@@ -120,7 +120,7 @@ class GenreUpdateView(LoginRequiredMixin, UpdateView):
         if '_continue' in self.request.POST:
             return reverse_lazy('genre_update', kwargs={'pk': self.object.pk})
         elif '_save' in self.request.POST:
-            return reverse_lazy('genre_list')
+            return reverse_lazy('viewer:genre_list')
 
         assert False, 'Unexpectedly got no _save or _continue in request.POST'
 
@@ -128,16 +128,15 @@ class GenreUpdateView(LoginRequiredMixin, UpdateView):
 class GenreDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'obj_delete_form.html'
     model = Genre
-    success_url = reverse_lazy('genre_list')
+    success_url = reverse_lazy('viewer:genre_list')
     extra_context = {'model_name': 'genre'}
 
 
 class SubmittableLoginView(LoginView):
     template_name = 'login_form.html'
     form_class = CustomAuthenticationForm
+    next_page = reverse_lazy('index')
 
-    # TODO fix
-    # def get(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return redirect('index')
-    #     return super().get(request, *args, **kwargs)
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('index')

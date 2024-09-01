@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{% url 'movie_list' %}">< Back to movie list</a>
+    <a href="{% url 'viewer:movie_list' %}">< Back to movie list</a>
     <br><br><br>
     <h2>{{ object.title }} ({{ object.released.year }})</h2>
     <hr>
@@ -9,6 +9,6 @@
     <p>Rating: {{ object.rating }}</p>
     <p>Description: {{ object.description }}</p>
     <br>
-    <button><a href="{% url 'movie_update' object.pk %}">Edit movie</a></button>
-    <button><a href="{% url 'movie_delete' object.pk %}">Delete movie</a></button>
+    <button><a href="{% url 'viewer:movie_update' object.pk %}">Edit movie</a></button>
+    <button><a href="{% url 'viewer:movie_delete' object.pk %}">Delete movie</a></button>
 {% endblock %}

@@ -5,10 +5,10 @@
   <hr>
   <p>This is index.</p>
   <div>
-    <a href="{% url 'movie_list' %}">Movies</a>
+    <a href="{% url 'viewer:movie_list' %}">Movies</a>
   </div>
   <div>
-    <a href="{% url 'genre_list' %}">Genres</a>
+    <a href="{% url 'viewer:genre_list' %}">Genres</a>
   </div>
 
   {{ my_html_code|safe }}
