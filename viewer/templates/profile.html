@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ object.first_name }} {{ object.last_name }}</h2>
+    <hr>
+    <p>Your username: {{ object.username }}</p>
+    <p>Your email: {{ object.email }} </p>
+    <p>You joined {{ object.date_joined }} </p>
+    <br>
+    <button><a href="{% url 'password_change' %}">Change password</a></button>
+    {% if object.is_staff or object.is_superuser %}
+        <button><a href="{% url 'admin:index' %}">To admin page</a></button>
+    {% endif %}
+{% endblock %}

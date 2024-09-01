@@ -1,10 +1,11 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
 
 from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm
 from viewer.models import Movie, Genre
@@ -33,6 +34,13 @@ def index(request):
             'br_test': 'text\n which contains\n multiple\nlines!',
         }
     )
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(), 'object': self.request.user}
 
 
 class MovieListView(LoginRequiredMixin, ListView):

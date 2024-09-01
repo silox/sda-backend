@@ -19,12 +19,16 @@ from django.contrib.auth import views
 
 from django.urls import path, include
 
-from viewer.views import hello, index, SubmittableLoginView, CustomLogoutView, SubmittablePasswordChangeView
+from viewer.views import (
+    hello, index, SubmittableLoginView, CustomLogoutView, SubmittablePasswordChangeView, ProfileView
+)
 
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('hello/<s0>', hello, name='hello'),
+    path('profile/', ProfileView.as_view(), name='profile'),
+
     path('viewer/', include('viewer.urls', namespace='viewer')),
 
     path('login/', SubmittableLoginView.as_view(), name='login'),
