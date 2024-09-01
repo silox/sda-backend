@@ -1,9 +1,11 @@
+from datetime import timedelta
 import logging
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
 
 from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm, SignUpForm
@@ -35,11 +37,14 @@ def index(request):
     )
 
 
-class ProfileView(LoginRequiredMixin, TemplateView):
+class ProfileView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
         return {**super().get_context_data(), 'object': self.request.user}
+
+    def test_func(self):
+        return timezone.now() - timedelta(days=7) > self.request.user.date_joined
 
 
 class MovieListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -99,30 +104,34 @@ class MovieDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'viewer.delete_movie'
 
 
-class GenreListView(LoginRequiredMixin, ListView):
+class GenreListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'genre_list.html'
     model = Genre
+    permission_required = 'viewer.view_genre'
 
 
-class GenreDetailView(LoginRequiredMixin, DetailView):
+class GenreDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = 'genre_detail.html'
     model = Genre
+    permission_required = 'viewer.view_genre'
 
 
-class GenreCreateView(LoginRequiredMixin, CreateView):
+class GenreCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'genre_form.html'
     form_class = GenreForm
     success_url = reverse_lazy('viewer:genre_list')
+    permission_required = 'viewer.add_genre'
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data.')
         return super().form_invalid(form)
 
 
-class GenreUpdateView(LoginRequiredMixin, UpdateView):
+class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'genre_form.html'
     model = Genre
     form_class = GenreForm
+    permission_required = 'viewer.change_genre'
 
     def form_invalid(self, form):
         logger.warning('User provided invalid data while updating a genre.')
@@ -137,11 +146,12 @@ class GenreUpdateView(LoginRequiredMixin, UpdateView):
         assert False, 'Unexpectedly got no _save or _continue in request.POST'
 
 
-class GenreDeleteView(LoginRequiredMixin, DeleteView):
+class GenreDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'obj_delete_form.html'
     model = Genre
     success_url = reverse_lazy('viewer:genre_list')
     extra_context = {'model_name': 'genre'}
+    permission_required = 'viewer.delete_genre'
 
 
 class SubmittableLoginView(LoginView):
