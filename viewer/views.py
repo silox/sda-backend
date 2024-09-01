@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
 
 from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm, SignUpForm
-from viewer.models import Movie, Genre
+from viewer.models import Movie, Genre, Profile
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +39,9 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
+        print(dir(self.request.user))
+        print(self.request.user.profile)
+        print(Profile.objects.all())
         return {**super().get_context_data(), 'object': self.request.user}
 
 

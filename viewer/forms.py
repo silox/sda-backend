@@ -82,7 +82,7 @@ class SignUpForm(UserCreationForm):
 
     @atomic
     def save(self, commit=True):
-        self.instance.is_active = False
+        # self.instance.is_active = False
         result = super().save(commit)
         biography = self.cleaned_data['biography']
         profile = Profile(biography=biography, user=result)

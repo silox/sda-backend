@@ -7,6 +7,13 @@
     <p>Your email: {{ object.email }} </p>
     <p>You joined {{ object.date_joined }} </p>
     <br>
+    <h4 class="card-title">Biography</h4>
+    <div class="card">
+        <div class="card-body">
+            {{ object.profile.biography }}
+        </div>
+    </div>
+    <br>
     <button><a href="{% url 'password_change' %}">Change password</a></button>
     {% if object.is_staff or object.is_superuser %}
         <button><a href="{% url 'admin:index' %}">To admin page</a></button>
