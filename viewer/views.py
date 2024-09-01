@@ -1,13 +1,12 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
 
-from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm
+from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm, SignUpForm
 from viewer.models import Movie, Genre
 
 logger = logging.getLogger(__name__)
@@ -154,3 +153,9 @@ class SubmittablePasswordChangeView(PasswordChangeView):
     template_name = 'password_change_form.html'
     success_url = reverse_lazy('index')
     form_class = CustomPasswordChangeForm
+
+
+class SignUpView(CreateView):
+    template_name = 'sign_up_form.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('index')

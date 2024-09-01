@@ -1,12 +1,13 @@
 import re
 
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserCreationForm
+from django.db.transaction import atomic
 from django.forms import (
-    CharField, IntegerField, ModelForm
+    CharField, IntegerField, ModelForm, Textarea
 )
 
 from viewer.fields import PastMonthField, capitalized_validator
-from viewer.models import Genre, Movie
+from viewer.models import Genre, Movie, Profile
 from django.core.exceptions import ValidationError
 
 
@@ -64,3 +65,27 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+
+class SignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        fields = ['username', 'first_name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+    biography = CharField(
+        label='Tell us your story with movies', widget=Textarea, min_length=40
+    )
+
+    @atomic
+    def save(self, commit=True):
+        self.instance.is_active = False
+        result = super().save(commit)
+        biography = self.cleaned_data['biography']
+        profile = Profile(biography=biography, user=result)
+        if commit:
+            profile.save()
+        return result

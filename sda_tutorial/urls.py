@@ -20,7 +20,7 @@ from django.contrib.auth import views
 from django.urls import path, include
 
 from viewer.views import (
-    hello, index, SubmittableLoginView, CustomLogoutView, SubmittablePasswordChangeView, ProfileView
+    hello, index, SubmittableLoginView, CustomLogoutView, SubmittablePasswordChangeView, ProfileView, SignUpView
 )
 
 urlpatterns = [
@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('login/', SubmittableLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('sign-up/', SignUpView.as_view(), name='sign_up'),
 
     path('password_change/', SubmittablePasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
