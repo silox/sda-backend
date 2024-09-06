@@ -14,7 +14,7 @@
         </div>
     </div>
     <br>
-    <button><a href="{% url 'password_change' %}">Change password</a></button>
+    <button><a href="{% url 'accounts:password_change' %}">Change password</a></button>
     {% if object.is_staff or object.is_superuser %}
         <button><a href="{% url 'admin:index' %}">To admin page</a></button>
     {% endif %}

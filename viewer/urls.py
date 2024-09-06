@@ -13,6 +13,7 @@ urlpatterns = [
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
     path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
     path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
+
     path('genre/', GenreListView.as_view(), name='genre_list'),
     path('genre/detail/<pk>', GenreDetailView.as_view(), name='genre_detail'),
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),

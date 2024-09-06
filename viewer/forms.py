@@ -7,7 +7,7 @@ from django.forms import (
 )
 
 from viewer.fields import PastMonthField, capitalized_validator
-from viewer.models import Genre, Movie, Profile
+from viewer.models import Genre, Movie
 from django.core.exceptions import ValidationError
 
 

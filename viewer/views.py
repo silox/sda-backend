@@ -1,15 +1,12 @@
-from datetime import timedelta
 import logging
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.utils import timezone
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from viewer.forms import MovieForm, GenreForm, CustomAuthenticationForm, CustomPasswordChangeForm, SignUpForm
-from viewer.models import Movie, Genre, Profile
+from viewer.forms import MovieForm, GenreForm
+from viewer.models import Movie, Genre
 
 logger = logging.getLogger(__name__)
 
@@ -35,16 +32,6 @@ def index(request):
             'br_test': 'text\n which contains\n multiple\nlines!',
         }
     )
-
-
-class ProfileView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
-    template_name = 'profile.html'
-
-    def get_context_data(self, **kwargs):
-        return {**super().get_context_data(), 'object': self.request.user}
-
-    def test_func(self):
-        return timezone.now() - timedelta(days=7) > self.request.user.date_joined
 
 
 class MovieListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -139,7 +126,7 @@ class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         if '_continue' in self.request.POST:
-            return reverse_lazy('genre_update', kwargs={'pk': self.object.pk})
+            return reverse_lazy('viewer:genre_update', kwargs={'pk': self.object.pk})
         elif '_save' in self.request.POST:
             return reverse_lazy('viewer:genre_list')
 
@@ -152,25 +139,3 @@ class GenreDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('viewer:genre_list')
     extra_context = {'model_name': 'genre'}
     permission_required = 'viewer.delete_genre'
-
-
-class SubmittableLoginView(LoginView):
-    template_name = 'login_form.html'
-    form_class = CustomAuthenticationForm
-    next_page = reverse_lazy('index')
-
-
-class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('index')
-
-
-class SubmittablePasswordChangeView(PasswordChangeView):
-    template_name = 'password_change_form.html'
-    success_url = reverse_lazy('index')
-    form_class = CustomPasswordChangeForm
-
-
-class SignUpView(CreateView):
-    template_name = 'sign_up_form.html'
-    form_class = SignUpForm
-    success_url = reverse_lazy('index')
