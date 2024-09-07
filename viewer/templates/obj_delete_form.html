@@ -6,6 +6,7 @@
     <p>
       Are you sure you want to delete {{ model_name }} "{{ object }}" from database?
     </p> 
-    <input type="submit" value="Submit" class="btn btn-danger">
-  </form> 
+    <input type="submit" value="Delete" class="btn btn-danger">
+    <a href="{% url 'index' %}" class="btn btn-secondary">Go back</a>
+  </form>
 {% endblock %}
