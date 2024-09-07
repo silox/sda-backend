@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from viewer.filters import TitleLengthFilter
+from viewer.filters import TitleLengthFilter, MovieDecadeFilter
 from viewer.models import Genre, Movie
 
 
@@ -23,7 +23,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'genre', 'released_year']
     list_display_links = ['id', 'title']
     list_per_page = 20
-    list_filter = ['genre', TitleLengthFilter]
+    list_filter = ['genre', TitleLengthFilter, MovieDecadeFilter]
     search_fields = ['title', 'genre__name']
     actions = ['cleanup_description', 'write_release_to_description']
 
@@ -50,5 +50,13 @@ class MovieAdmin(admin.ModelAdmin):
     readonly_fields = ['created']
 
 
-admin.site.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    ordering = ['id']
+    list_display = ['id', 'name', 'available_for_children']
+    list_display_links = ['id', 'name']
+    list_filter = ['available_for_children']
+    search_fields = ['name']
+
+
+admin.site.register(Genre, GenreAdmin)
 admin.site.register(Movie, MovieAdmin)
