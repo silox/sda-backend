@@ -27,4 +27,6 @@ urlpatterns = [
 
     path('viewer/', include('viewer.urls', namespace='viewer')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+
+    path('silk/', include('silk.urls', namespace='silk'))
 ]

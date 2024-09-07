@@ -21,6 +21,11 @@ Sprav migracie
 python manage.py migrate
 ```
 
+Nacitaj staticke subory
+```bash
+python manage.py collectstatic
+```
+
 Aktivuje sa virtual environment
 ```bash
 poetry shell

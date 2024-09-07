@@ -10,6 +10,7 @@ package-mode = false
 python = "^3.9"
 django = "4.2.15"
 ipython = "7.34.0"
+django-silk = "^5.2.0"
 
 
 [build-system]
