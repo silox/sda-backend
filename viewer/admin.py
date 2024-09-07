@@ -12,13 +12,19 @@ class MovieAdmin(admin.ModelAdmin):
     def cleanup_description(modeladmin, request, queryset):
         queryset.update(description='')
 
+    @admin.action(description="Write release date to description")
+    def write_release_to_description(self, request, queryset):
+        for movie in queryset:
+            movie.description = f'{movie.description}{"\n\n" if movie.description else ""}Released year - {movie.released.year}'
+            movie.save()
+
     ordering = ['id']
     list_display = ['id', 'title', 'genre', 'released_year']
     list_display_links = ['id', 'title']
     list_per_page = 20
     list_filter = ['genre']
     search_fields = ['title', 'genre__name']
-    actions = ['cleanup_description']
+    actions = ['cleanup_description', 'write_release_to_description']
 
     fieldsets = [
         (None, {'fields': ['title', 'created']}),
