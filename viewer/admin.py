@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from viewer.filters import TitleLengthFilter
 from viewer.models import Genre, Movie
 
 
@@ -22,7 +23,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'genre', 'released_year']
     list_display_links = ['id', 'title']
     list_per_page = 20
-    list_filter = ['genre']
+    list_filter = ['genre', TitleLengthFilter]
     search_fields = ['title', 'genre__name']
     actions = ['cleanup_description', 'write_release_to_description']
 
