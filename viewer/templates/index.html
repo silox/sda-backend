@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tt_utils %}
 
 {% block content %}
   <h1>Welcome to HollyMovies!</h1>
@@ -19,6 +20,11 @@
   {% for key, value in dict_data.items %}
     <p>{{key}} {{value}}</p>
   {% endfor %}
+
+  <p>{% cut 'removed is some is words is' %}</p>
+  <b>{{ 'my a bit longer text'|truncate:15 }}</b>
+
+  <p>{{ my_test_date|to_nice_date }}</p>
 
   <p>{{ names|join:', ' }}</p>
   <p>{{ br_test|linebreaksbr }}</p>

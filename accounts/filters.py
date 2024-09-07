@@ -6,7 +6,7 @@ class EmailDomainFilter(SimpleListFilter):
     parameter_name = 'email_domain'
 
     def lookups(self, request, model_admin):
-        return tuple(
+        return (
             ('@' + obj.user.email.split('@')[1],) * 2 for obj in model_admin.model.objects.all()
         )
 

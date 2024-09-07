@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -30,6 +31,7 @@ def index(request):
             'names': ['John', 'Peter', 'James'],
             'my_html_code': code,
             'br_test': 'text\n which contains\n multiple\nlines!',
+            'my_test_date': date.today().replace(),
         }
     )
 
