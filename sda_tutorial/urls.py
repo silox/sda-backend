@@ -30,5 +30,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
 
     path('silk/', include('silk.urls', namespace='silk')),
+    path('api-auth/', include('rest_framework.urls')),
     *debug_toolbar_urls(),
 ]

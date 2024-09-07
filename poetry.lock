@@ -129,6 +129,20 @@ gprof2dot = ">=2017.09.19"
 sqlparse = "*"
 
 [[package]]
+name = "djangorestframework"
+version = "3.15.2"
+description = "Web APIs for Django, made easy."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20"},
+    {file = "djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "gprof2dot"
 version = "2024.6.6"
 description = "Generate a dot graph from the output of several profilers."
@@ -391,4 +405,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "64fde865a7a8d6d8bd3638b1d7939c133d3bbf76c1d9de2637de3783a519395c"
+content-hash = "9cddf9092722a9bc34fa3df2124e56eab40cb7102c82f3cc709e88123e717de2"
