@@ -15,9 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     @admin.action(description="Set Lorem Ipsum biography")
     def set_lorem_ipsum_bio(self, request, queryset):
-        for movie in queryset:
-            movie.biography = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            movie.save()
+        queryset.update(biography='Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
 
     ordering = ['id']
     list_display = ['id', 'user_name', 'user_email']
